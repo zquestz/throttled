@@ -2,6 +2,8 @@ throttled 0.5.1 by quest, lws, and step76
 
 This is a small app to provide bandwidth shaping to Mac OS X and FreeBSD. If you use Mac OS X and want a GUI version then check out http://intrarts.com/throttled.html
 
+For more information visit http://intrarts.com/throttledcli.html or view the official throttled github repo at http://github.com/zquestz/throttled
+
 usage: ./throttled [-Thv] -s speed -r rule [-i increment] [-d port] [-w weight]
 -s speed        Max speed in bytes/second (required)
 -r rule         IPFW rule number to remove when quit (required)
