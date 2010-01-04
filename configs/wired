@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# This will cap your wired server and wired client uploads at 5k/sec.
+# MAXSPEED is in bytes.
+
+# Setup a few variables
+MAXSPEED=5120
+RULENUM=00075
+IP=any
+INTERFACE=en0
+
+# Launch throttled with cap of 5k/sec.
+/usr/local/sbin/throttled -s $MAXSPEED -d 5555 -r $RULENUM || exit
+
+# bind for wired server
+/sbin/ipfw add $RULENUM divert 5555 tcp from $IP 2001 to any out xmit $INTERFACE
+
+# bind for wired client uploads
+/sbin/ipfw add $RULENUM divert 5555 tcp from $IP to any 2001 out xmit $INTERFACE

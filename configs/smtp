@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# This will cap your smtp server to 5k/sec.
+# MAXSPEED is in bytes.
+
+# Setup a few variables
+MAXSPEED=5120
+RULENUM=00075
+IP=any
+INTERFACE=en0
+
+# Launch throttled with cap of 5k/sec.
+/usr/local/sbin/throttled -s $MAXSPEED -d 5555 -r $RULENUM || exit
+
+# Have ipfw divert outgoing traffic on port 25 to throttled.
+/sbin/ipfw add $RULENUM divert 5555 tcp from $IP 25 to any out xmit $INTERFACE

@@ -1,0 +1,17 @@
+#!/bin/sh
+
+. /etc/rc.common
+
+StartService ()
+{
+    ConsoleMessage "Starting throttled"
+    /usr/local/sbin/throttled-startup &
+}
+
+StopService ()
+{
+    ConsoleMessage "Stopping throttled"
+    /usr/bin/killall throttled
+}
+
+RunService "$1"

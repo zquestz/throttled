@@ -1,0 +1,157 @@
+#!/bin/sh
+
+# this is the main configuration file for throttled. 
+# if you used a previous release, the syntax has changed in 0.5.x
+# you have been warned. make sure to specify weights for your divert sockets.
+
+# set your network interface 
+# you can get a full list by doing "ifconfig -a"
+# these examples are osx specific
+# ethernet - "INTERFACE=en0"
+# airport - "INTERFACE=en1"
+# pppoe - "INTERFACE=ppp0"
+INTERFACE=en0
+
+# set your maximum speed in bytes...
+# this should be set to your maximum upstream speed.
+# recommended common adsl/cable speeds:
+# 384k upload - "MAXSPEED=49152"
+# 256k upload - "MAXSPEED=32768"
+# 128k upload - "MAXSPEED=16384"
+MAXSPEED=81920
+
+# DON'T CHANGE ANYTHING BELOW UNLESS YOU KNOW WHAT YOUR DOING.
+# most users should not edit anything below. you have been warned.
+
+# ipfw rule number (1-65535)
+# Rule 00070 allows throttled to coexist with the apple firewall
+# and internet connection sharing.
+# You may have to change this if you use certain firewall products.
+RULENUM=00070
+
+# usage: throttled [-ATLh] -s speed -r rule [-i increment] [-d port] [-p priority]
+# -s speed        Max speed in bytes/second (required)
+# -r rule         IPFW rule number to remove when quit (required)
+# -i increment    Amount to change the throttle in bytes/sec (USR1 - Decrease | USR2 - Increase)
+# -T              Enable iTunes TTL fix 
+# -h              This help screen
+# -v              Version information
+# -d port         Divert port (optional, may specify more than one)
+#         -w weight     Weight for the divert port specified prior to this option.
+
+# launch throttled with a maxspeed of $MAXSPEED
+# this throttled instance has 3 weights, this allows us to prioritize low 
+# bandwidth flows, normal flows, and very fast flows (for ACK priority).. 
+# You will understand this more when you look how the rules are setup below.
+/usr/local/sbin/throttled -s $MAXSPEED -r $RULENUM -d 17779 -w 50 -d 17778 -w 10 -d 17777 -w 1 -T || exit
+
+# all rules below are for ipfw, there is many ways you can set this up.
+# we have simplified this for new users by removing ip specific ipfw rules.
+# this fixes isses for dynamic ip users, but if you want rules bound to 
+# a single ip you can use either of the examples below.
+#
+# the line below finds your ip automatically
+# IP=$(/sbin/ifconfig $INTERFACE inet | /usr/bin/sed -n 's/^.*inet\ \(\([0-9]\{1,3\}\.\)\{3\}[0-9]\{1,3\}\).*/\1/p' | tail -n 1) 
+#
+# you can also specify the ip address by doing
+# IP=192.168.1.7
+IP=any
+
+# skip your internal network, these rules are for 192.168.x.x and 10.x.x.x
+/sbin/ipfw add $RULENUM skipto `expr $RULENUM + 1` ip from $IP to 192.168.0.0/16 out xmit $INTERFACE
+/sbin/ipfw add $RULENUM skipto `expr $RULENUM + 1` ip from $IP to 10.0.0.0/8 out xmit $INTERFACE
+
+# skip bonjour networks
+/sbin/ipfw add $RULENUM skipto `expr $RULENUM + 1` ip from $IP to 169.254.0.0/16 out xmit $INTERFACE
+
+# prioritize empty acks and setup
+/sbin/ipfw add $RULENUM divert 17779 tcp from $IP to any out xmit $INTERFACE tcpflags ack iplen 0-70
+/sbin/ipfw add $RULENUM divert 17779 tcp from $IP to any setup out xmit $INTERFACE
+
+# prioritize icmp
+/sbin/ipfw add $RULENUM divert 17779 icmp from any to any out xmit $INTERFACE
+
+# these rules allow http/https/ssh/telnet/pop/irc/sirc 
+# to be prioritized by the throttle.
+#
+# Setting up the configuration this way catches more file transfer types
+# and minimizes lag in response driven services.
+
+# prioritize nameserver lookups
+/sbin/ipfw add $RULENUM divert 17779 tcp from $IP to any 53 out xmit $INTERFACE
+/sbin/ipfw add $RULENUM divert 17779 udp from $IP to any 53 out xmit $INTERFACE
+
+# prioritize http/https
+/sbin/ipfw add $RULENUM divert 17778 tcp from $IP to any 80 out xmit $INTERFACE
+/sbin/ipfw add $RULENUM divert 17778 tcp from $IP to any 443 out xmit $INTERFACE
+
+# prioritize ssh and telnet
+/sbin/ipfw add $RULENUM divert 17779 tcp from $IP 22 to any out xmit $INTERFACE
+/sbin/ipfw add $RULENUM divert 17779 tcp from $IP to any 22 out xmit $INTERFACE
+/sbin/ipfw add $RULENUM divert 17778 tcp from $IP to any 23 out xmit $INTERFACE
+
+# prioritize imap
+/sbin/ipfw add $RULENUM divert 17778 tcp from $IP to any 143 out xmit $INTERFACE
+
+# prioritize ftp directory listings
+/sbin/ipfw add $RULENUM divert 17778 tcp from $IP to any 21 out xmit $INTERFACE
+
+# prioritize msn
+# /sbin/ipfw add $RULENUM divert 17778 tcp from $IP to any 1863 out xmit $INTERFACE
+
+# prioritize pop3
+/sbin/ipfw add $RULENUM divert 17778 tcp from $IP to any 110 out xmit $INTERFACE
+
+# prioritize irc and sirc
+/sbin/ipfw add $RULENUM divert 17778 tcp from $IP to any 6667 out xmit $INTERFACE
+/sbin/ipfw add $RULENUM divert 17778 tcp from $IP to any 6668 out xmit $INTERFACE
+/sbin/ipfw add $RULENUM divert 17778 tcp from $IP to any 9999 out xmit $INTERFACE
+
+# prioritize hotline, carracho, wired listing ports (client end)
+/sbin/ipfw add $RULENUM divert 17778 tcp from $IP to any 5500 out xmit $INTERFACE
+/sbin/ipfw add $RULENUM divert 17778 tcp from $IP to any 6700 out xmit $INTERFACE
+/sbin/ipfw add $RULENUM divert 17778 tcp from $IP to any 2000 out xmit $INTERFACE
+
+# prioritize hotline and carracho listing ports (server end)
+# /sbin/ipfw add $RULENUM divert 17778 tcp from $IP 5500 to any out xmit $INTERFACE
+# /sbin/ipfw add $RULENUM divert 17778 tcp from $IP 6700 to any out xmit $INTERFACE
+
+# prioritize VNC
+/sbin/ipfw add $RULENUM divert 17779 tcp from $IP 5900 to any out xmit $INTERFACE
+/sbin/ipfw add $RULENUM divert 17779 tcp from $IP to any 5900 out xmit $INTERFACE
+
+# prioritize iTunes
+/sbin/ipfw add $RULENUM divert 17778 tcp from $IP 3689 to any out xmit $INTERFACE
+
+# prioritize Gizmo
+/sbin/ipfw add $RULENUM divert 17778 udp from $IP 5004 to any out xmit $INTERFACE
+/sbin/ipfw add $RULENUM divert 17778 udp from $IP 5060 to any out xmit $INTERFACE
+
+# prioritize WoW
+/sbin/ipfw add $RULENUM divert 17779 tcp from $IP to any 3724 out xmit $INTERFACE
+
+# prioritize Diablo II, Starcraft, Warcraft II, and Warcraft III
+/sbin/ipfw add $RULENUM divert 17778 tcp from $IP 6112-6119 to any out xmit $INTERFACE
+/sbin/ipfw add $RULENUM divert 17778 udp from $IP 6112-6119 to any out xmit $INTERFACE
+/sbin/ipfw add $RULENUM divert 17778 tcp from $IP 4000 to any out xmit $INTERFACE
+
+# prioritize Unreal Tournament 2004
+/sbin/ipfw add $RULENUM divert 17778 tcp from $IP 28902 to any out xmit $INTERFACE
+/sbin/ipfw add $RULENUM divert 17778 udp from $IP 7777-7778 to any out xmit $INTERFACE
+/sbin/ipfw add $RULENUM divert 17778 udp from $IP 7787 to any out xmit $INTERFACE
+
+# prioritize Call of Duty
+/sbin/ipfw add $RULENUM divert 17778 tcp from $IP 28960 to any out xmit $INTERFACE
+/sbin/ipfw add $RULENUM divert 17778 udp from $IP 28960 to any out xmit $INTERFACE
+/sbin/ipfw add $RULENUM divert 17778 udp from $IP 20500 to any out xmit $INTERFACE
+/sbin/ipfw add $RULENUM divert 17778 udp from $IP 20510 to any out xmit $INTERFACE
+
+# prioritize Quake 3
+/sbin/ipfw add $RULENUM divert 17778 udp from $IP 27660-27665 to any out xmit $INTERFACE
+
+# prioritize Ghost Recon
+/sbin/ipfw add $RULENUM divert 17778 tcp from $IP 2346 to any out xmit $INTERFACE
+/sbin/ipfw add $RULENUM divert 17778 udp from $IP 2347-2348 to any out xmit $INTERFACE
+
+# bind to throttle low priority services.
+/sbin/ipfw add $RULENUM divert 17777 ip from $IP to any out xmit $INTERFACE

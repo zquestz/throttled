@@ -1,0 +1,11 @@
+{
+  Description     = "throttled";
+  Provides        = ("throttled");
+  Requires        = ("Network","NetworkExtensions");
+  OrderPreference = "Early";
+  Messages =
+  {
+    start = "Enabling throttled";
+    stop  = "Removing throttled";
+  };
+}
