@@ -57,7 +57,7 @@
 #if defined(__FreeBSD__)
 #define NICEVALUE 0
 #else
-#define NICEVALUE -20
+#define NICEVALUE -18
 #endif
 
 // I don't know where to find this otherwise... the all packet header info
