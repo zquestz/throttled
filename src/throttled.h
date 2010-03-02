@@ -1,6 +1,6 @@
 /*
  throttled.h
- Copyright (C) 2008 quest and lws
+ Copyright (C) 2010 quest and lws
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
