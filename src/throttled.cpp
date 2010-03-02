@@ -28,6 +28,7 @@ int main(int argc, char** argv)
 
 	// Open the console for syslog()
 	openlog(argv[0], LOG_CONS | LOG_PID, LOG_DAEMON);
+	
 	// Check commandline args
 	checkccargs(argc, argv);
 
@@ -70,14 +71,14 @@ int main(int argc, char** argv)
 	for( iter = threads.begin(); iter != threads.end(); iter++)
 		makerecievethread(*iter);	
 
-        // Make sure per-thread stack is big enough for threads
-        pthread_attr_init(&sendpattr);
-        pthread_attr_getstacksize(&sendpattr, &sendssize);
+  // Make sure per-thread stack is big enough for threads
+  pthread_attr_init(&sendpattr);
+  pthread_attr_getstacksize(&sendpattr, &sendssize);
  
-        if (sendssize < BUFSIZE + 1024) {
-            sendssize = BUFSIZE + 1024;
-            pthread_attr_setstacksize(&sendpattr, sendssize);
-        }
+  if (sendssize < BUFSIZE + 1024) {
+    sendssize = BUFSIZE + 1024;
+    pthread_attr_setstacksize(&sendpattr, sendssize);
+  }
 
 	pthread_create(&sendid, &sendpattr, sendpackets, NULL);
 
@@ -90,7 +91,6 @@ int main(int argc, char** argv)
 		close((*iter)->sockid);
 		delete *iter;
 	}
-
 
 	syslog(LOG_NOTICE, "Program Terminated");
 	closelog();
@@ -171,12 +171,12 @@ void checkccargs(int argc, char** argv)
 				}
 				if( curport)
 				{
-                    if( ! curport->weight )
-                    {
-                        curport->weight = atoi(optarg);
-                        curport->flowId = threads.size();
+          if( ! curport->weight )
+          {
+            curport->weight = atoi(optarg);
+            curport->flowId = threads.size();
 						threads.push_back(curport);
-                    }
+          }
 					else
 					{
 						fprintf(stderr, "You may not specify two weights for the same port... Exiting...\n");
@@ -226,7 +226,7 @@ void checkccargs(int argc, char** argv)
 			exit(1);
 		} else {
 			curport->weight = 1;
-            curport->flowId = threads.size();
+      curport->flowId = threads.size();
 			threads.push_back(curport);
 		}
 	}
@@ -314,8 +314,8 @@ void makerecievethread(threadData *thedata)
 	pthread_attr_getstacksize(&(thedata->pattr), &(thedata->ssize));
 
  	if (thedata->ssize < BUFSIZE + 1024) {
-        thedata->ssize = BUFSIZE + 1024;
-        pthread_attr_setstacksize(&(thedata->pattr), thedata->ssize);
+    thedata->ssize = BUFSIZE + 1024;
+    pthread_attr_setstacksize(&(thedata->pattr), thedata->ssize);
 	}
 
 	pthread_create(&(thedata->receiveid), &(thedata->pattr), receivepackets, (void *)thedata);
@@ -461,4 +461,3 @@ void* sendpackets(void *dataarg)
 
 	return NULL;
 }
-

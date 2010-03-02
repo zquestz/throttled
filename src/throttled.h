@@ -69,7 +69,6 @@ struct allheaders {
 	};
 };
 
-
 // Putting all our data in a struct so it can be easily located
 typedef struct threadData threadData;
 struct threadData
@@ -83,7 +82,6 @@ struct threadData
 	pthread_t receiveid;
     pthread_attr_t pattr;
     size_t ssize;
- 
 };
 
 // Global variables
@@ -117,4 +115,3 @@ void* receivepackets(void *dataarg);
 void* sendpackets(void *dataarg);
 
 #endif
-
