@@ -1,5 +1,5 @@
 # throttled Makefile
-# (C) 2008 - quest and lws
+# (C) 2010 - quest and lws
 
 ifeq ($(shell uname -s),FreeBSD)
 MAKE = gmake
