@@ -313,10 +313,10 @@ void makerecievethread(threadData *thedata)
 	pthread_attr_init(&(thedata->pattr));
 	pthread_attr_getstacksize(&(thedata->pattr), &(thedata->ssize));
 
- 	if (thedata->ssize < BUFSIZE + 1024) {
+  if (thedata->ssize < BUFSIZE + 1024) {
     thedata->ssize = BUFSIZE + 1024;
     pthread_attr_setstacksize(&(thedata->pattr), thedata->ssize);
-	}
+  }
 
 	pthread_create(&(thedata->receiveid), &(thedata->pattr), receivepackets, (void *)thedata);
 }
