@@ -21,68 +21,68 @@
 #define HEAP_H
 
 class heap {
-	private:
-		struct HeapElement {
-			HeapElement* pNext;
-			HeapElement* pPrev;
-			void* pData;
-			
-			HeapElement() {
-				pNext = NULL;
-				pPrev = NULL;
-				pData = NULL;
-			}
-		} *pHeapHead, *pHeapTail;
+  private:
+    struct HeapElement {
+      HeapElement* pNext;
+      HeapElement* pPrev;
+      void* pData;
+      
+      HeapElement() {
+        pNext = NULL;
+        pPrev = NULL;
+        pData = NULL;
+      }
+    } *pHeapHead, *pHeapTail;
 
-	public:
-		void* pop() {
-			// if the heap is empty return NULL
-			if (pHeapHead == NULL)
-				return NULL;
-			
-			// save a pointer to data
-			void* pData = pHeapHead->pData;
-			
-			if (pHeapHead == pHeapTail) {
-				// if head and tail are the same, empty the heap
-				delete pHeapHead;
-				pHeapHead = NULL;
-				pHeapTail = NULL;
-			} else {
-				// remove the head
-				pHeapHead->pNext->pPrev = NULL;
-				HeapElement* pOldHead = pHeapHead;
-				pHeapHead = pHeapHead->pNext;
-				delete pOldHead;
-				pOldHead = NULL;
-			}
-			
-			return pData;
-		};
-		
-		void push(void* pData) {
-			// create the new element
-			HeapElement* pElement = new HeapElement;
-			pElement->pData = pData;
-			
-			if (pHeapHead == NULL && pHeapTail == NULL) {
-				// the heap is empty
-				pHeapHead = pElement;
-				pHeapTail = pElement;
-			} else {
-				// the element is the new tail
-				pHeapTail->pNext = pElement;
-				pElement->pPrev = pHeapTail;
-				pHeapTail = pElement;
-			}
-		};
-		
-		void* front() {
-			if (pHeapHead == NULL)
-				return NULL;
-			else
-				return pHeapHead->pData;
-		};
+  public:
+    void* pop() {
+      // if the heap is empty return NULL
+      if (pHeapHead == NULL)
+        return NULL;
+      
+      // save a pointer to data
+      void* pData = pHeapHead->pData;
+      
+      if (pHeapHead == pHeapTail) {
+        // if head and tail are the same, empty the heap
+        delete pHeapHead;
+        pHeapHead = NULL;
+        pHeapTail = NULL;
+      } else {
+        // remove the head
+        pHeapHead->pNext->pPrev = NULL;
+        HeapElement* pOldHead = pHeapHead;
+        pHeapHead = pHeapHead->pNext;
+        delete pOldHead;
+        pOldHead = NULL;
+      }
+      
+      return pData;
+    };
+    
+    void push(void* pData) {
+      // create the new element
+      HeapElement* pElement = new HeapElement;
+      pElement->pData = pData;
+      
+      if (pHeapHead == NULL && pHeapTail == NULL) {
+        // the heap is empty
+        pHeapHead = pElement;
+        pHeapTail = pElement;
+      } else {
+        // the element is the new tail
+        pHeapTail->pNext = pElement;
+        pElement->pPrev = pHeapTail;
+        pHeapTail = pElement;
+      }
+    };
+    
+    void* front() {
+      if (pHeapHead == NULL)
+        return NULL;
+      else
+        return pHeapHead->pData;
+    };
 };
 
 #endif

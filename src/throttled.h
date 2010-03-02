@@ -62,24 +62,24 @@
 
 // I don't know where to find this otherwise... the all packet header info
 struct allheaders {
-	struct ip	ipheader;
-	union {
-		struct tcphdr	tcpheader;
-		struct udphdr	udpheader;
-	};
+  struct ip ipheader;
+  union {
+    struct tcphdr tcpheader;
+    struct udphdr udpheader;
+  };
 };
 
 // Putting all our data in a struct so it can be easily located
 typedef struct threadData threadData;
 struct threadData
 {
-	int sockid, bindid, flowId;
-	struct sockaddr_in sockport;
-	struct in_addr addr;
-	int bindport;
-	int weight;
-        	
-	pthread_t receiveid;
+  int sockid, bindid, flowId;
+  struct sockaddr_in sockport;
+  struct in_addr addr;
+  int bindport;
+  int weight;
+          
+  pthread_t receiveid;
     pthread_attr_t pattr;
     size_t ssize;
 };

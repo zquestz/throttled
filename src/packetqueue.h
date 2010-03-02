@@ -26,31 +26,31 @@
 
 struct pPacket
 {
-	char *packet;
-	long size;
-	struct sockaddr	toaddr;
-	socklen_t fromsize;
-	int	sockid;
-	int flowId;
+  char *packet;
+  long size;
+  struct sockaddr toaddr;
+  socklen_t fromsize;
+  int sockid;
+  int flowId;
 
-	pPacket(int in_flowId, int s, const void *msg, size_t len, const struct sockaddr *to, int tolen )
-	{
-		flowId = in_flowId;
-		sockid = s;
-		packet = new char[len];
-		size = len;
-		memcpy(packet, msg, len);
-		toaddr = (*to);
-		fromsize = tolen;
-	}
+  pPacket(int in_flowId, int s, const void *msg, size_t len, const struct sockaddr *to, int tolen )
+  {
+    flowId = in_flowId;
+    sockid = s;
+    packet = new char[len];
+    size = len;
+    memcpy(packet, msg, len);
+    toaddr = (*to);
+    fromsize = tolen;
+  }
 
-	pPacket()
-	{
-	}
+  pPacket()
+  {
+  }
 
-	~pPacket()
-	{
-	}
+  ~pPacket()
+  {
+  }
 };
 
 #endif
