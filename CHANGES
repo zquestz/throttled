@@ -10,6 +10,7 @@
 
 - throttled 0.5.0 -
 First I wanted to thank Stefano Ciccarelli for implementing weighted queues and becoming our first major contributor on the project. Without his work, this release would not have been possible. Now, on to the changes:
+
 1. Implemented full weighted queues using WF2Q+.
 2. Removed ACK priority and LAN uncapping features in the binary. They are now done in the throttled-startup file via ipfw rules.
 3. Now compiles under Leopard.
