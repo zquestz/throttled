@@ -264,7 +264,7 @@ void deleterules()
 {
   char buffer[30];
   int n;
-  n = sprintf(buffer, "/sbin/ipfw del %i", rulenum);
+  n = sprintf(buffer, "/sbin/ipfw delete %i", rulenum);
   system(buffer);
 }
 
