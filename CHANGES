@@ -3,6 +3,7 @@
 2. Available on github at http://github.com/zquestz/throttled
 3. Sample configurations for download capping.
 4. License updated to GPLv3.
+5. Fixed compilation issues on FreeBSD.
 
 - throttled 0.5.1 -
 1. Added skipto rules for bonjour networks and 10.x.x.x networks. This should fix the remaining LAN issues people have reported.
