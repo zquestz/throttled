@@ -26,6 +26,7 @@
 #include <stdio.h>
 #ifdef __FreeBSD__
 #include <sys/types.h>
+#include <signal.h>
 #endif
 #include <netinet/in.h>
 #include <netinet/in_systm.h>
