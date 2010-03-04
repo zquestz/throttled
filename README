@@ -3,7 +3,9 @@ throttled 0.5.2 by quest, lws, and step76
 web - http://intrarts.com/throttledcli.html
 github - http://github.com/zquestz/throttled
 
-This is a small daemon to provide bandwidth shaping to Mac OS X and FreeBSD. 
+This is a small daemon to provide bandwidth shaping to Mac OS X and FreeBSD.
+If you are using FreeBSD, make sure to have divert socket support
+compiled into your kernel.
 
 usage: ./throttled [-Thv] -s speed -r rule [-i increment] [-d port] [-w weight]
 -s speed        Max speed in bytes/second (required)
