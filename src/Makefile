@@ -2,9 +2,9 @@
 # (C) 2010 - quest and lws
 
 # Normal Compilation
-# CPPFLAGS = -O3
+CPPFLAGS = -O3
 # Universal Binary for OS X
-CPPFLAGS = -O3 -arch ppc -arch ppc64 -arch i386 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.4u.sdk -mmacosx-version-min=10.4
+# CPPFLAGS = -O3 -arch ppc -arch ppc64 -arch i386 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.4u.sdk -mmacosx-version-min=10.4
 CPP = c++
 
 SRCS = throttled.cpp
