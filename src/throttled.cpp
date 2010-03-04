@@ -1,6 +1,6 @@
 /*
  throttled.cpp
- Copyright (C) 2010 quest and lws
+ Copyright (C) 2010 Josh Ellithorpe (quest) and lws
  
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -60,6 +60,7 @@ int main(int argc, char** argv)
   // Throw the app into the background
   daemon(0,1);
 
+  // Setup threads
   queueMut = (pthread_mutex_t *)malloc(sizeof (pthread_mutex_t));
   pthread_mutex_init (queueMut, NULL);
   sendMut = (pthread_mutex_t *)malloc(sizeof (pthread_mutex_t));
@@ -67,7 +68,7 @@ int main(int argc, char** argv)
   aQueueNotEmpty = (pthread_cond_t *)malloc(sizeof (pthread_cond_t));
   pthread_cond_init (aQueueNotEmpty, NULL);
 
-  // make the threads
+  // Make the recieve threads
   for( iter = threads.begin(); iter != threads.end(); iter++)
     makerecievethread(*iter); 
 
@@ -113,7 +114,7 @@ void checkccargs(int argc, char** argv)
   while ((c = getopt(argc, argv, "vhTs:r:i:d:w:")) != EOF) {
     switch (c) {
       case 'v':
-        printf("throttled %s\n\nCopyright (C) 2008 quest, lws and step76.\n", THROTTLED_VERSION);
+        printf("throttled %s\n\nCopyright (C) 2010 quest, lws and step76.\n", THROTTLED_VERSION);
         exit(1);
         break;
       case 'h':
@@ -304,8 +305,6 @@ void makesocket (struct threadData *thedata)
 */
 void makerecievethread(threadData *thedata)
 {
-  // Create the pthreads
-
   // inizialize flow
   PacketQueue.init(thedata->flowId, (50 / (threads.size() + 1)), thedata->weight);
 
@@ -317,7 +316,8 @@ void makerecievethread(threadData *thedata)
     thedata->ssize = BUFSIZE + 1024;
     pthread_attr_setstacksize(&(thedata->pattr), thedata->ssize);
   }
-
+  
+  // Create the pthread
   pthread_create(&(thedata->receiveid), &(thedata->pattr), receivepackets, (void *)thedata);
 }
 

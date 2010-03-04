@@ -1,7 +1,8 @@
+#!/bin/sh
 # This is a very simple installation script for throttled.
 
 # Install binaries and throttled-startup script.
-echo "Installing throttled 0.5.1 binary."
+echo "Installing throttled 0.5.2 binary."
 install -d /usr/local/sbin
 install -c throttled /usr/local/sbin/throttled
 install -c throttled-startup /usr/local/sbin/throttled-startup

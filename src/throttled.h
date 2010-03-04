@@ -1,6 +1,6 @@
 /*
  throttled.h
- Copyright (C) 2010 quest and lws
+ Copyright (C) 2010 Josh Ellithorpe (quest) and lws
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 #ifndef THROTTLED_H
 #define THROTTLED_H
 
-#define THROTTLED_VERSION "0.5.1"
+#define THROTTLED_VERSION "0.5.2"
 
 // Global includes
 #include <stdio.h>
@@ -60,7 +60,7 @@
 #define NICEVALUE -18
 #endif
 
-// I don't know where to find this otherwise... the all packet header info
+// All packet header info
 struct allheaders {
   struct ip ipheader;
   union {
@@ -80,8 +80,8 @@ struct threadData
   int weight;
           
   pthread_t receiveid;
-    pthread_attr_t pattr;
-    size_t ssize;
+  pthread_attr_t pattr;
+  size_t ssize;
 };
 
 // Global variables

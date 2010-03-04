@@ -1,0 +1,35 @@
+throttled 0.5.2 by quest, lws, and step76
+
+web - http://intrarts.com/throttledcli.html
+github - http://github.com/zquestz/throttled
+
+This is a small daemon to provide bandwidth shaping to Mac OS X and FreeBSD. 
+
+usage: ./throttled [-Thv] -s speed -r rule [-i increment] [-d port] [-w weight]
+-s speed        Max speed in bytes/second (required)
+-r rule         IPFW rule number to remove when quit (required)
+-i increment    Amount to change the throttle in bytes/sec (USR1 - Decrease | USR2 - Increase)
+-T              Enable iTunes TTL fix
+-h              This help screen
+-v              Version information
+-d port         Divert port (optional, may specify more than one)
+    -w weight       Weight for the divert port specified prior to this option.
+
+•• Configuring and installing throttled (Binary Install for Mac OS X) 
+
+1. cd to the directory containing throttled in the terminal.
+2. edit throttled-startup with your desired configuration.
+3. type "sudo ./Install.sh" to install throttled and its StartupItem.
+4. to run throttled just type "sudo /usr/local/sbin/throttled-startup"
+
+•• Configuring and installing throttled (Source Install)
+
+1. cd to the directory containing throttled in the terminal.
+2. edit throttled-startup with your desired configuration.
+3. type "make" ("gmake" on FreeBSD systems)
+4. type "sudo make install"
+5. to run throttled just type "sudo /usr/local/sbin/throttled-startup"
+6. the source install does not include the OS X StartupItem. If you need it run ./Install.sh
+
+For more information you can read the comments in throttled-startup
+Thats it... throttled is all set to go.

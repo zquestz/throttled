@@ -1,0 +1,52 @@
+- throttled 0.5.2 -
+1. Minor code cleanup.
+2. Available on github at http://github.com/zquestz/throttled
+3. Sample configurations for download capping.
+4. License updated to GPLv3.
+
+- throttled 0.5.1 -
+1. Added skipto rules for bonjour networks and 10.x.x.x networks. This should fix the remaining LAN issues people have reported.
+2. Included sample configuration for Wired.
+
+- throttled 0.5.0 -
+First I wanted to thank Stefano Ciccarelli for implementing weighted queues and becoming our first major contributor on the project. Without his work, this release would not have been possible. Now, on to the changes:
+1. Implemented full weighted queues using WF2Q+.
+2. Removed ACK priority and LAN uncapping features in the binary. They are now done in the throttled-startup file via ipfw rules.
+3. Now compiles under Leopard.
+
+- throttled 0.4.6 -
+1. Updated priority_queue to use deque instead of vector for better memory management.
+
+- throttled 0.4.5 -
+1. Updated startup messages for local network throttling and updated the help/usage text.
+
+- throttled 0.4.4 -
+1. Compiled as a Universal Binary for PPC, PPC64, and Intel.
+
+- throttled 0.4.3 -
+1. Tweaked configuration files so they operate with more firewalls.
+2. Changed some ipfw rule syntax to accommodate 10.3.9 users. 
+
+- throttled 0.4.2 -
+1. Modified the default config to not prioritize smtp or aim.
+2. Included a few sample configs besides the default.
+3. Added -v flag for version information.
+
+- throttled 0.4.1 -
+1. Fixed StartupItem for OS X.
+2. Added divert rules for Ghost Recon.
+
+- throttled 0.4 -
+1. UDP support now works. This allows for VOIP and game priority options.
+2. Simplified the rule removal code. See the -r flag. (Luigi--)
+3. Compiles clean with gcc4 on Mac OS X 10.3-10.4.x, FreeBSD 4.x, and FreeBSD 5.x.
+4. Linux support has been removed to clean up the codebase. 
+5. The default throttled-startup script now has more rules, mainly for the VOIP and gaming features.
+
+- throttled 0.3.2 -
+1. Fixed FreeBSD pthread issues. Now should compile cleanly on 4.x and 5.x. 
+2. Fixed a few packet priority bugs (thx Dave).
+
+- throttled 0.3.1 -
+1. Added iTunes TTL fix as -T flag.
+2. Added default rule for Wired listing ports (port 2000)

@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# This will cap your download speed to 5k/sec.
+# You probably want to set this higher.
+# MAXSPEED is in bytes.
+
+# Setup a few variables
+MAXSPEED=5120
+RULENUM=00072
+IP=any
+INTERFACE=en0
+
+# Launch throttled with cap of 5k/sec.
+/usr/local/sbin/throttled -s $MAXSPEED -d 5555 -r $RULENUM || exit
+
+# skip your internal network, these rules are for 192.168.x.x and 10.x.x.x
+/sbin/ipfw add $RULENUM skipto `expr $RULENUM + 1` ip from 192.168.0.0/16 to $IP in via $INTERFACE
+/sbin/ipfw add $RULENUM skipto `expr $RULENUM + 1` ip from 10.0.0.0/8 to $IP in via $INTERFACE
+
+# Redirect all incoming traffic to throttled
+/sbin/ipfw add $RULENUM divert 5555 ip from any to $IP in via $INTERFACE
