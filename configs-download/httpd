@@ -1,10 +1,10 @@
 #!/bin/sh
 
-# This will cap your web downloads at 5k/sec.
+# This will cap your web downloads at 50k/sec.
 # MAXSPEED is in bytes.
 
 # Setup a few variables
-MAXSPEED=5120
+MAXSPEED=51200
 RULENUM=00072
 IP=any
 INTERFACE=en0

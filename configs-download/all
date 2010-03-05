@@ -1,11 +1,11 @@
 #!/bin/sh
 
-# This will cap your download speed to 5k/sec.
+# This will cap your download speed to 50k/sec.
 # You probably want to set this higher.
 # MAXSPEED is in bytes.
 
 # Setup a few variables
-MAXSPEED=5120
+MAXSPEED=51200
 RULENUM=00072
 IP=any
 INTERFACE=en0
