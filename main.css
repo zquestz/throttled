@@ -9,6 +9,7 @@ a:hover, a:active {
 }
 
 body {
+  padding: 10px;
   background-color: black;
 }
 
