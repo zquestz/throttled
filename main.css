@@ -1,0 +1,20 @@
+a, a:link, a:visited {
+  color: #00a55a;
+  text-decoration: none;
+}
+
+a:hover, a:active {
+  color: #00a5de;
+  text-decoration: none;
+}
+
+body {
+  background-color: black;
+}
+
+pre {
+  padding: 0px;
+  margin: 0px;
+  font-size: 14px;
+  color: white;
+}

@@ -1,1 +1,33 @@
-throttled 0.5.2
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  	<title>throttled</title>
+    <link href="main.css" media="screen" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <img src="throttled.png" alt="throttled">
+    <pre>
+throttled 0.5.2 by quest, lws, and step76
+
+web - <a href="http://intrarts.com/throttledcli.html">http://intrarts.com/throttledcli.html</a>
+github - <a href="http://github.com/zquestz/throttled">http://github.com/zquestz/throttled</a>
+
+This is a small daemon to provide bandwidth shaping to Mac OS X and FreeBSD.
+If you are using FreeBSD, make sure to have divert socket support
+compiled into your kernel.
+
+usage: ./throttled [-Thv] -s speed -r rule [-i increment] [-d port] [-w weight]
+-s speed        Max speed in bytes/second (required)
+-r rule         IPFW rule number to remove when quit (required)
+-i increment    Amount to change the throttle in bytes/sec (USR1 - Decrease | USR2 - Increase)
+-T              Enable iTunes TTL fix
+-h              This help screen
+-v              Version information
+-d port         Divert port (optional, may specify more than one)
+    -w weight       Weight for the divert port specified prior to this option.
+    </pre>
+  </body>
+</html>
