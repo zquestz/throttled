@@ -88,7 +88,8 @@ struct threadData
 // Global variables
 char keeplooping = true;
 bool itunesfix = false;
-long maxrate = 0, rulenum = 0, speedchange = 1024;
+long maxrate = 0, speedchange = 1024;
+int rulenum = 0;
 long maxsendratio = 0;
 WF2Q PacketQueue;
 
