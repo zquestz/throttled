@@ -115,6 +115,7 @@ IP=any
 # prioritize hotline and carracho listing ports (server end)
 # /sbin/ipfw add $RULENUM divert 17778 tcp from $IP 5500 to any out xmit $INTERFACE
 # /sbin/ipfw add $RULENUM divert 17778 tcp from $IP 6700 to any out xmit $INTERFACE
+# /sbin/ipfw add $RULENUM divert 17778 tcp from $IP 2000 to any out xmit $INTERFACE
 
 # prioritize VNC
 /sbin/ipfw add $RULENUM divert 17779 tcp from $IP 5900 to any out xmit $INTERFACE
