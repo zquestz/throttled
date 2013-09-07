@@ -168,11 +168,13 @@ pPacket* WF2Q::deque(void)
   double minS = -1;
   for (i = 0; i < MAXFLOWS; i++) {
     W += fs_[i].weight_;
-    if (fs_[i].qcrtSize_)
-      if (minS == -1)
+    if (fs_[i].qcrtSize_) {
+      if (minS == -1) {
         minS = fs_[i].S_;
-      else
+      } else {
         minS = min(fs_[i].S_, minS);
+      }
+    }
   }
   V = max(minS, (V + ((double)pktSize/W)));
   //syslog(LOG_NOTICE, "V %f", V);

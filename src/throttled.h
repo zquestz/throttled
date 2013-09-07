@@ -20,7 +20,7 @@
 #ifndef THROTTLED_H
 #define THROTTLED_H
 
-#define THROTTLED_VERSION "0.5.2"
+#define THROTTLED_VERSION "0.6.0"
 
 // Global includes
 #include <stdio.h>

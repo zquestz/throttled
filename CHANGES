@@ -1,3 +1,7 @@
+- throttled 0.6.0 -
+1. Official 10.8 support.
+2. Bit of code cleanup.
+
 - throttled 0.5.2 -
 1. Minor code cleanup.
 2. Available on github at http://github.com/zquestz/throttled
