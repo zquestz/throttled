@@ -17,7 +17,7 @@ install: all
 	install -c ${APPNAME} /usr/local/sbin/throttled
 	install -c throttled-startup /usr/local/sbin/throttled-startup
 clean:
-	cd src; make clean
+	cd src; ${MAKE} clean
 
 uninstall:
 	rm /usr/local/sbin/throttled
