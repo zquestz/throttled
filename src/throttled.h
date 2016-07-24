@@ -24,10 +24,17 @@
 
 // Global includes
 #include <stdio.h>
+
+// Include signals for linux and FreeBSD.
 #ifdef __FreeBSD__
 #include <sys/types.h>
 #include <signal.h>
 #endif
+#ifdef __linux__
+#include <sys/signal.h>
+#endif
+
+// More global includes.
 #include <netinet/in.h>
 #include <netinet/in_systm.h>
 #include <netinet/ip.h>
@@ -52,6 +59,11 @@
 
 // Definitions for compiler variables
 #define BUFSIZE 65535
+
+// Define IPPROTO_DIVERT for linux.
+#ifdef __linux__
+#define IPPROTO_DIVERT 254
+#endif
 
 // Define your application priority (-20 through 20)
 // FreeBSD crashes hard at -20... make sure to watch out!
