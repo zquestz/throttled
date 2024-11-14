@@ -4,7 +4,7 @@
 
 - throttled 0.5.2 -
 1. Minor code cleanup.
-2. Available on github at http://github.com/zquestz/throttled
+2. Available on github at https://github.com/zquestz/throttled
 3. Sample configurations for download capping.
 4. License updated to GPLv3.
 5. Fixed compilation issues on FreeBSD.
@@ -31,7 +31,7 @@ First I wanted to thank Stefano Ciccarelli for implementing weighted queues and 
 
 - throttled 0.4.3 -
 1. Tweaked configuration files so they operate with more firewalls.
-2. Changed some ipfw rule syntax to accommodate 10.3.9 users. 
+2. Changed some ipfw rule syntax to accommodate 10.3.9 users.
 
 - throttled 0.4.2 -
 1. Modified the default config to not prioritize smtp or aim.
@@ -46,11 +46,11 @@ First I wanted to thank Stefano Ciccarelli for implementing weighted queues and 
 1. UDP support now works. This allows for VOIP and game priority options.
 2. Simplified the rule removal code. See the -r flag. (Luigi--)
 3. Compiles clean with gcc4 on Mac OS X 10.3-10.4.x, FreeBSD 4.x, and FreeBSD 5.x.
-4. Linux support has been removed to clean up the codebase. 
+4. Linux support has been removed to clean up the codebase.
 5. The default throttled-startup script now has more rules, mainly for the VOIP and gaming features.
 
 - throttled 0.3.2 -
-1. Fixed FreeBSD pthread issues. Now should compile cleanly on 4.x and 5.x. 
+1. Fixed FreeBSD pthread issues. Now should compile cleanly on 4.x and 5.x.
 2. Fixed a few packet priority bugs (thx Dave).
 
 - throttled 0.3.1 -

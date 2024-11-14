@@ -1,7 +1,6 @@
 throttled 0.6.0 by quest, lws, and step76
 
-web - http://intrarts.com/throttledcli.html
-github - http://github.com/zquestz/throttled
+github - https://github.com/zquestz/throttled
 
 This is a small daemon to provide bandwidth shaping to Mac OS X and FreeBSD.
 If you are using FreeBSD, make sure to have divert socket support
@@ -17,7 +16,7 @@ usage: ./throttled [-Thv] -s speed -r rule [-i increment] [-d port] [-w weight]
 -d port         Divert port (optional, may specify more than one)
     -w weight       Weight for the divert port specified prior to this option.
 
-•• Configuring and installing throttled (Binary Install for Mac OS X) 
+•• Configuring and installing throttled (Binary Install for Mac OS X)
 
 1. cd to the directory containing throttled in the terminal.
 2. edit throttled-startup with your desired configuration.
